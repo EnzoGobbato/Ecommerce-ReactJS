@@ -1,7 +1,7 @@
 const products = [
     {
         id: '1', 
-        name: 'Silicone Case Iphone', 
+        name: 'Silicone Case Samsung', 
         price: 1800, 
         category: 'fundas', 
         img: "../imagenes/SamsungSilicone.jpg", 

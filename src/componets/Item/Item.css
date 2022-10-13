@@ -20,8 +20,8 @@
     margin: auto;
     padding: 10px;
     height: auto;
-    background-color: rgb(153, 159, 153);
-    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 40px;
 
 
 }
@@ -36,12 +36,13 @@
 }
 
 .imagen img{
-    width: 250px;
-    height: 250px;
+    width: 12rem;
+    height: 12rem;
     margin: auto;
 }
 
 .details{
+    font-size: larger;
     display: flex;
     flex-direction: column;
     align-items: center;
