@@ -33,7 +33,7 @@ const products = [
         category: 'templado', 
         img: "../imagenes/protectorcomun.jpg", 
         stock: 280, 
-        description:'Relleno de salmón, langostinos, palta y queso crema, con salmón por fuera y salsa de sésamo.'
+        description:'Vidrio templado común'
 },
 { 
         id: '5', 
@@ -42,7 +42,7 @@ const products = [
         category: 'templado', 
         img: "../imagenes/Tempado9D.jpg", 
         stock: 200, 
-        description:' Cordoba Roll, Placer Real, Feel Roll, Honey Roll, Philadelphia Roll, Sashimi de Salmón y Niguiri de Salmón.'
+        description:'Vidrio templado 9D, con cobertura en todos los bordes'
 },
 {
         id: '6', 
@@ -51,7 +51,7 @@ const products = [
         category: 'templado', 
         img: "../imagenes/Hydrogel.png", 
         stock: 150, 
-        description:'Cordoba Roll, Celerity Roll, Feel Roll, Soul Roll, Niguiri Fuego Thai. Incluye salsa'
+        description:'Hydrogel de calidad premium cortado a medida para cada celular'
 },
 {
         id: '7', 
@@ -60,7 +60,7 @@ const products = [
         category: 'cargadores', 
         img: "../imagenes/MicroUSB.jpg", 
         stock: 180, 
-        description:'Placer Real, Soul Roll, Feel Roll, Geishas de Salmón, Futurama Roll, Sweet Roll, SPF Roll.'
+        description:'Cargador Micro-USB'
 },
 {
         id: '8', 
@@ -69,7 +69,7 @@ const products = [
         category: 'cargadores', 
         img: "../imagenes/TypeC.jpg", 
         stock: 125, 
-        description:' Placer Real, Merken Roll, Sweet Roll, Feel Roll, Sashimi de salmón, Niguiri Anticuchero.'  
+        description:'Cargador type C'  
 },
 {
         id: '9', 
@@ -78,7 +78,7 @@ const products = [
         category: 'cargadores', 
         img: "../imagenes/IphoneCargador.jpg", 
         stock: 80, 
-        description:' Placer Real, Merken Roll, Sweet Roll, Feel Roll, Sashimi de salmón, Niguiri Anticuchero.'  
+        description:'Cargador iphone'  
 },
 {
         id: '10', 
@@ -87,7 +87,7 @@ const products = [
         category: 'equipos', 
         img: "../imagenes/A53.png", 
         stock: 4, 
-        description:' Placer Real, Merken Roll, Sweet Roll, Feel Roll, Sashimi de salmón, Niguiri Anticuchero.'  
+        description:'Celular nuevo samsung A53 liberado 5g'  
 },
 {
         id: '11', 
@@ -96,7 +96,7 @@ const products = [
         category: 'equipos', 
         img: "../imagenes/a73.jpg", 
         stock: 2, 
-        description:' Placer Real, Merken Roll, Sweet Roll, Feel Roll, Sashimi de salmón, Niguiri Anticuchero.'  
+        description:'Celular nuevo samsung A73 liberado 5g'  
 },
 {
         id: '12', 
@@ -105,7 +105,7 @@ const products = [
         category: 'equipos', 
         img: "../imagenes/Iphone11.jpg", 
         stock: 6, 
-        description:' Placer Real, Merken Roll, Sweet Roll, Feel Roll, Sashimi de salmón, Niguiri Anticuchero.'  
+        description:'Iphone 11 64gb 128gb nuevos'  
 }
 ]
 
