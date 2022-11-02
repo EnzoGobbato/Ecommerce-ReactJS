@@ -2,7 +2,6 @@ import Item from "../Item/Item"
 import "../ItemList/ItemList.css"
 
 
-
 const ItemList = ({products, setPage }) => {
   return(
           
@@ -11,6 +10,5 @@ const ItemList = ({products, setPage }) => {
       </div>    
   )
 }
-
 
 export default ItemList

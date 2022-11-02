@@ -1,7 +1,9 @@
-import '../Item/Item.css'
-import { Link } from 'react-router-dom'
+import './Item.css'
+import { useNavigate } from 'react-router-dom'
 
 const Item = ({ id, img, name, category, price }) => {
+  const navigate = useNavigate()
+
   return (
     <div className='containerCard'>
       <div className='card' key={id}>
@@ -13,11 +15,10 @@ const Item = ({ id, img, name, category, price }) => {
           <h5>{category}</h5>
           <p>${price}</p>
         </div>
-        <Link to = {`/detail/${id}`}>Ver detalle</Link>
+        <button onClick={()=> navigate (`/item/${id}`)}> Ver detalle </button>
       </div>
     </div>
   )
-
 }
 
 export default Item

@@ -6,3 +6,9 @@
     margin: auto;
     background-color: rgb(241, 241, 241);
 }
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

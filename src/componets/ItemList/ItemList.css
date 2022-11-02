@@ -4,8 +4,8 @@
     justify-content:center;
     flex-direction: row;
     align-items: center;
-    align-content: center;
+    align-content: space-around;
     flex-wrap: wrap;
-    margin:10px auto;
+    margin:5px auto;
 
 }

@@ -106,6 +106,15 @@ const products = [
         img: "../imagenes/Iphone11.jpg", 
         stock: 6, 
         description:'Iphone 11 64gb 128gb nuevos'  
+},
+{ 
+    id: '13',
+    name: 'Silicone Case Iphone', 
+    price: 1600, 
+    category: 'fundas', 
+    img: "../imagenes/IphoneSilicone.jpg", 
+    stock: 150, 
+    description:'Fundas de silicona originales para Samsung en todos sus modelos'
 }
 ]
 

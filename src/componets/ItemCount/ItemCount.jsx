@@ -1,41 +1,41 @@
-import React from "react"
-import {useState} from 'react'
-import "./ItemCount.css"
+import { useState, useContext } from 'react';
+import { Link } from "react-router-dom";
+import './ItemCount.css'
 
-let stock = 150 
 
-const Counter = () => {
+const ItemCount = ({ stock = 0, initial = 1, onAdd }) => {
+  const [quantity, setQuantity] = useState(initial)
 
-    const [count, setCount] = useState (0)
 
-    const increment = () => {
-        if (count < stock) {
-        setCount (count +1)
-        }
+  const increment = () => {
+    if (quantity < stock) {
+      setQuantity(quantity + 1);
+    }
+  }
+
+  const decrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1)
     }
 
-    const decrement = () => {
-        if (count >0){
-        setCount (count -1)
-        }
-    }
+  }
 
-    const agregar = () => {
-        alert ('Agregaste el prodcuto al carrito correctamente')
-    }
+  const [buttonText, setButtonText] = useState("Agregar al carro");
 
-    return (
-        <div>
-            <h1>Contador</h1>
+ 
+  return (
+    <div id="contador">
+      <button className="btn btn-dark" id='button' onClick={increment}>+</button>
+      <p id='numero'>{quantity}</p>
+      <button className="btn btn-dark" id='button' onClick={decrement} >-</button>
 
-            <div className="contador">
-                <button className="elements" onClick={decrement}> - </button> 
-                <h2 className="elements">{count}</h2>
-                <button  className="elements" onClick={increment}> + </button>
-                <button className="agregar" onClick={agregar}> Agregar al carrito </button>
-            </div>
-        </div>
-        )
-} 
 
-export default Counter
+      <button className="btn btn-dark" id='button'  onClick={() =>{ onAdd(quantity); setButtonText("Elemento agregado") }}>{buttonText}</button>
+
+      <Link to={'/cart'} className="btn btn-dark" id='button'  >Ir al carrito</Link>
+
+    </div>
+  )
+}
+
+export default ItemCount;
