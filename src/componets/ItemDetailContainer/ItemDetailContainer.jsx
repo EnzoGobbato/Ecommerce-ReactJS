@@ -1,51 +1,48 @@
-import { useState, useEffect } from 'react'
-import { getProductById } from '../AsyncMock'
-import ItemDetail from '../ItemDetail/ItemDetail.jsx'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from "react" 
 import './ItemDetailContainer.css'
+import ItemDetail from '../ItemDetail/ItemDetail'
+import { useParams, useNavigate } from 'react-router-dom'
 import { DotSpinner } from '@uiball/loaders'
-import {getDoc, doc} from 'firebase/firestore'
-import { db } from '../Services/Firebase'
+import { getDoc, doc } from "firebase/firestore"
+import { db } from "../../services"
 
-
-
-const ItemDetailContainer =() => {
-    const [product, setProduct] = useState({})
-    const [loading, setLoading] = useState(true)
-    const {productId} = useParams()
+const ItemDetailContainer = () => {
+    const [product, setProduct] = useState({}) 
+    const [cargando, setCargando] = useState(true)
+    const { productId } = useParams()
 
     const navigate = useNavigate()
 
     useEffect(() => {
-
-        const docRef = doc(db, 'products', productId)
+        const docRef = doc(db, 'productos', productId)
 
         getDoc(docRef).then(response => {
+            console.log(response)
             const data = response.data()
-            const productAdapted = { id: response.id, ...data } 
-            setProduct (productAdapted)
-        }).finally(()=>{
-            setLoading(false)
+            const productAdapted = { id: response.id, ...data}
+            setProduct(productAdapted)
+        }). finally (() => {
+            setCargando(false)
         })
+
     }, [productId])
 
-    if (loading){
-        return ( 
-            <div className= "center">
-            <h3 className= "center">Cargando el detalle del producto</h3>
-            <DotSpinner  size={40} speed={0.9} color="black" className= "center"/>
+    if (cargando) {
+        return (
+            <div className="center">
+                <h3 className="center">Cargando el detalle del producto</h3>
+                <DotSpinner size={40} speed={0.9} color="black" className="center" />
             </div>
         )
     }
 
-    return  (
+    return (
         <div>
-        <button className="title" onClick={() => navigate(-1)} >Volver</button>
-        <h3 className="center">Detalle de producto</h3>
-         <ItemDetail key= {product.id} {... product}/>
-           
+            <button className="title" onClick={() => navigate(-1)} >Volver</button>
+            <h1 className="center">Detalle de producto</h1>
+            <ItemDetail key={product.id} {...product} />
         </div>
     )
 }
 
-export default ItemDetailContainer 
+export default ItemDetailContainer

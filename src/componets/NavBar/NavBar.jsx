@@ -4,7 +4,7 @@ import Logo from '../Assets/logoPrincipal.png'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getDocs, collection } from 'firebase/firestore'
-import { db } from '../Services/Firebase'
+import { db } from '../../services'
 
 
 const NavBar = () =>{

@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../CartContext/CartContext.js";
-import { NotificationContext } from '../Services/NotificationService/NotificationService'
+import { NotificationContext } from '../../NotificationService/NotificationService'
 import { collection, getDocs, query, where, documentId, writeBatch, addDoc } from 'firebase/firestore'
-import { db } from '../Services/Firebase'
+import { db } from '../../services'
 import { useNavigate } from "react-router-dom";
 
 //funcion para realizar la compra y mandar los datos al firebase

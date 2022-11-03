@@ -1,46 +1,28 @@
-import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import ItemList from '../ItemList/ItemList.jsx'
-import './itemListContainer.css'
 import { DotSpinner } from '@uiball/loaders'
-import { getDocs, collection, query, where } from 'firebase/firestore'
-import { db } from "../Services/Firebase/index.js"
+import ItemList from "../ItemList/ItemList"
+import "./itemListContainer.css"
+import { getProducts } from "../../services/firebase/products"
+import useAsync from "../Hooks/useAsync"
 
 const ItemListContainer = () => {
-     const [products, setProducts] = useState([])
-     const [loading, setLoading] = useState(true)
-     const { categoryId } = useParams()
+    const { categoryId } = useParams()
+    const getProductsWithCategory = () => getProducts(categoryId)
 
-     useEffect(() => {
-        setLoading(true)
+    const { data: products, error, loading } = useAsync(getProductsWithCategory, [categoryId])
 
-        const collectionRef = categoryId
-        ? query(collection(db, 'productos'), where ('category', '==', categoryId))
-        : collection(db, 'productos')
-        getDocs(collectionRef).then(response => {
-            console.log(response)
 
-        const productsAdapted = response.docs.map(doc => {
-            const data = doc.data()
-                console.log(data)
-            return {id: doc.id, ...data}
-        })
-            console.log(productsAdapted)
-        setProducts(productsAdapted)
-
-        }).catch(error => {
-            console.log(error)
-        }).finally(() => {
-            setLoading(false)
-        })
-    }, [categoryId])
-
-    if(loading) {
+    if (loading) {
         return (
-        <div className="center">
-            <h1>Loading</h1>
-            <DotSpinner size={50} speed={0.6} color="black" className="center" />
-        </div>)
+            <div className='center'>
+                <h1>Cargando...</h1>
+                <DotSpinner size={40} speed={0.9} color="black" className="center" />
+            </div>
+        )
+    }
+
+    if(error){
+        return <h1>Upps! Hubo un error.</h1>
     }
 
      return (
