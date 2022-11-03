@@ -6,24 +6,28 @@ import ItemDetailContainer from './componets/ItemDetailContainer/ItemDetailConta
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Cart from './componets/Cart/Cart.js';
 import {CartProvider} from './CartContext/CartContext';
+import { NotificationProvider } from './componets/Services/NotificationService/NotificationService'
+import Checkout from './componets/Checkout/Checkout'
 
 function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
-
+    <div>
+     <NotificationProvider>
+        <CartProvider>
+          <BrowserRouter>
         <Navbar />
-
           <Routes>
-            <Route path= '/' element= {<ItemListContainer/>} />
-            <Route path='/category/:categoryId'element={<ItemListContainer/>}/>
-            <Route path= '/detail/:productId' element= {<ItemDetailContainer/>}/>
+            <Route path= '/' element= {<ItemListContainer />} />
+            <Route path='/category/:categoryId'element={<ItemListContainer />}/>
+            <Route path= '/detail/:productId' element= {<ItemDetailContainer />}/>
             <Route path='*' element={<h1>404 NOT FOUND</h1>} />
             <Route path= '/Cart' element={<Cart />} />
+            <Route path='./componets/Checkout/Checkout' element={<Checkout />} />
           </Routes>
-
-      </BrowserRouter>
-    </CartProvider>
+          </BrowserRouter>
+        </CartProvider>
+     </NotificationProvider>
+  </div>
   );
 }
 

@@ -10,68 +10,56 @@ export const CartContext = createContext({
   export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0)
-  const [total, setTotal] = useState(0)
-  console.log("carrito:", cart);
-  console.log("contador:", totalQuantity)
 
-  useEffect(() => {
-    const getQuantity = () => {
-        let accu = 0
-    
-        cart.forEach(prod => {
-            accu += prod.count
-        })
-    
-        return accu
-    }
-    const totalQty = getQuantity()
-    setTotalQuantity(totalQty)
-}, [cart]);
-
+ useEffect(() => {
+        const totalQty = getQuantity()
+        setTotalQuantity(totalQty)
+    }, [cart])
 
 // agregar un producto al carrito
 
-  function addItem(productToAdd, count) {
-        if (!isInCart(productToAdd.id)) {
-          productToAdd.count = count
-            setCart([...cart, productToAdd]);
-        } else {
-            setCart(
-                cart.map((prod) => {
-                    return prod.id === productToAdd.id
-                        ? { ...prod, count: productToAdd.count }
-                        : prod;
-                })
-            );
-            console.log("Tu producto ya esta en el carrito!");
-        }
+  const addItem = (productToAdd) => {
+    //Funión para saber si el producto está en el carrito
+    if (!isInCart(productToAdd.id)) {
+        setCart([...cart, productToAdd])
+    } else {
+        console.log('Ya esta en el carrito')
     }
+}
+    const isInCart = (id) => {
+      return cart.some(prod => prod.id === id)
+}
 
-  // función que devuelva true o false 
-  const isInCart = (id) => {
-    return cart.some((prod) => prod.id === id);
-  };
+ //Funcion para remover/filtrar
+ 
+ const removeItem = (id) => {
+  const cartWithoutProduct = cart.filter(prod => prod.id !== id)
+  setCart(cartWithoutProduct)
+}
+const getQuantity = () => {
+  let accu = 0
+  cart.forEach(prod => {
+      accu += prod.quantity
+  })
+  return accu
+}
 
-  // función para remover un producto del carrito
-  const removeItem = (id) => {
-    const productLess = cart.filter((prod) => prod.id !== id);
-    setCart(productLess);
-  };
+//Función para obtener el total de los productos en el carrito 
+const getTotal = () => {
+  let accu = 0
+  cart.forEach(prod => {
+      accu += prod.quantity * prod.price
+  })
+  return accu
+}
 
-  // función para limpiar el carrito
-  const clearCart = () => {
-    setCart([]);
-  };
-  
-  return (
-    <CartContext.Provider value={{ cart, addItem, removeItem, clearCart, totalQuantity }}>
+const clearCart = () => {
+  setCart([])
+}
+
+return (
+  <CartContext.Provider value={{ cart, addItem, removeItem, totalQuantity, isInCart, getTotal, clearCart }}>
       {children}
-    </CartContext.Provider>
-  );
-  }
-  
-  export const useCart = () => {
-    return useContext(CartContext)
-  }
-
-  export default CartProvider
+  </CartContext.Provider>
+)
+}
