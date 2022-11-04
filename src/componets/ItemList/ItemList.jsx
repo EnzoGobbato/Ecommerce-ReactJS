@@ -7,7 +7,7 @@ const ItemList = ({products, setPage }) => {
           
       <div className='ListGroup'>
           {products.map(prod => 
-            <Item key={prod.id} {...prod} setPage={setPage}/>)}
+            <Item key={prod.id} {...prod} setPage={setPage} />)}
       </div>    
   )
 }
