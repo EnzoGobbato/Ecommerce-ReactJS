@@ -3,7 +3,7 @@ import Counter from '../ItemCount/ItemCount.jsx'
 import './ItemDetail.css'
 import { useContext } from 'react'
 import { CartContext } from '../../CartContext/CartContext'
-import { NotificationContext }  from '../../NotificationService/NotificationService'
+import { NotificationContext }  from '../../Notification/NotificationService'
 
 const ItemDetail = ({ id, img, name, category, price, stock, description }) => {
         

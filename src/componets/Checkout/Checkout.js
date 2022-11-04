@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../CartContext/CartContext.js";
-import { NotificationContext } from '../../NotificationService/NotificationService'
+import { NotificationContext } from '../../Notification/NotificationService'
 import { collection, getDocs, query, where, documentId, writeBatch, addDoc } from 'firebase/firestore'
 import { db } from '../../services'
 import { useNavigate } from "react-router-dom";

@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 import Navbar from './componets/NavBar/NavBar.jsx';
-import ItemListContainer from './componets/ItemListContainer/ItemListContainer.jsx';
+import ItemListContainer from './componets/ItemListContainer/ItemListContainer.js';
 import ItemDetailContainer from './componets/ItemDetailContainer/ItemDetailContainer.jsx';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Cart from './componets/Cart/Cart.js';
 import {CartProvider} from './CartContext/CartContext';
-import { NotificationProvider } from './NotificationService/NotificationService'
+import { NotificationProvider } from './Notification/NotificationService'
 import Checkout from './componets/Checkout/Checkout'
 
 function App() {

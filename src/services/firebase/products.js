@@ -7,8 +7,8 @@ export const getProducts = (categoryId) => {
 
         const collectionRef = categoryId
 
-            ? query(collection(db, 'productos'), where('category', '==', categoryId))
-            : collection(db, 'productos')
+            ? query(collection(db, 'products'), where('category', '==', categoryId))
+            : collection(db, 'products')
 
 
         getDocs(collectionRef).then(response => {
