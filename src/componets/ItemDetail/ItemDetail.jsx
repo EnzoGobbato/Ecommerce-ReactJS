@@ -1,42 +1,44 @@
-import'../AsyncMock'
-import Counter from '../ItemCount/ItemCount.jsx'
 import './ItemDetail.css'
-import { useContext } from 'react'
 import { CartContext } from '../../CartContext/CartContext'
-import { NotificationContext }  from '../../Notification/NotificationService'
+import { useContext, useState } from 'react'
+import ItemCount from '../ItemCount/ItemCount.jsx'
+import { Link } from 'react-router-dom'
+import NotificationContext from '../../Notification/NotificationService'
 
-const ItemDetail = ({ id, img, name, category, price, stock, description }) => {
+const ItemDetail = ({id, img, name, category, price, description, stock }) => {
+    const {setNotification} = useContext(NotificationContext)
+
+    const [goToCart, setGoToCart] = useState (false)
+
+    const {addItem} = CartContext ( );
+
+    const onAdd = (count) => {
+        const productToAdd = {
+            id,
+            name,
+            category,
+            price,
+            description
+        }
+        addItem (productToAdd, count);
+        setNotification('success', 'Producto agregado')
+        setGoToCart(true)
+};
+    return (
         
-        const {addItem} = useContext(CartContext)
-        const { setNotification } = useContext(NotificationContext)
-
-        const handleOnAdd = (quantity) => {
-            const productToAdd = {
-                id,
-                name,
-                category,
-                price,
-                description,
-                quantity,
-                stock,
-            }
-            addItem(productToAdd)
-            setNotification('success', `Se agrego correctamente ${quantity} ${name}`)
-           
-          }
-
-          return(
-
        <div className='containerDetail'>
             <img src={img} alt={name}/>
             <h1 className="name">{name}</h1>
-            <h4 className="category">Categoria: {category}</h4>
+            <h3 className="category">{category}</h3>
             <p className="price"> ${price}</p>
-            <p className="stock">Cantidad en stock inmediato: {stock}</p>
             <p className= "description ">{description}</p> 
-            <Counter onAdd={handleOnAdd} stock={stock} />
-        </div> 
-
+            { goToCart
+                ? <Link to='/cart'>Terminar Compra</Link>
+                :<ItemCount onAdd={onAdd} stock={stock}/>
+            }
+    
+    </div> 
+    
     )
 }
 
