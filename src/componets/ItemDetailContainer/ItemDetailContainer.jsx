@@ -44,7 +44,7 @@ const ItemDetailContainer = () => {
     return (
         <div>
             <button className="buttonBack" onClick={() => navigate(-1)} > Volver </button>
-            <h1 className="center">Detalle de producto</h1>
+            <h1 className="center">DETALLE DEL PRODUCTO </h1>
             <ItemDetail key={product.id} {...product} />
         </div>
     )

@@ -1,0 +1,43 @@
+.buttonBack{
+    background-color: rgb(0, 148, 0);
+    border-style: groove;
+    border-radius: 20px;
+    padding: 0.6rem;
+    color: aliceblue;
+    font-size: large;
+    margin: 0.5rem 0 0 0.5rem;
+    cursor: pointer;
+    width: 15%;
+
+  }
+
+  .body3 {
+    background: black;
+    color: #fff;
+    font-weight: 400;
+    font-size: 1em;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 2rem;
+    width: 70%;
+    border: solid 2px;
+    border-radius: 20px;
+
+}
+
+
+.h12 {
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.divcenter {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}

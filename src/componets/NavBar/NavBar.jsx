@@ -30,10 +30,10 @@ const NavBar = () =>{
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
   <Link to='/'> <img src={Logo} alt="logo principal" className="logo" /></Link>
       <ul className="navItems">
-        <li><Link to='/category/fundas' className="button-nav">Fundas</Link></li>
-        <li><Link to='/category/templado' className="button-nav">Templados</Link></li>
-        <li><Link to='/category/cargadores' className="button-nav">Cargadores</Link></li>
-        <li><Link to='/category/equipos' className="button-nav">Equipos nuevos y reacondicionados</Link></li>
+        <li><Link to='/category/fundas' className="button-nav">FUNDAS</Link></li>
+        <li><Link to='/category/templado' className="button-nav">TEMPLADOS</Link></li>
+        <li><Link to='/category/cargadores' className="button-nav">CARGADORES</Link></li>
+        <li><Link to='/category/equipos' className="button-nav">EQUIPOS NUEVOS Y REACONDICIONADOS</Link></li>
         <li><CardWidget /></li>
       </ul>
         {/* categories.map(cat => {
