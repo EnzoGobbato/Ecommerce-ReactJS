@@ -1,3 +1,25 @@
+.CarritoVacio{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px;
+    padding: 1rem;
+    margin: 2rem 0rem 2rem 25%;
+    font-weight: 500;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.CarritoVacio button{
+    background-color: #F6AE10;
+    padding: 0.3rem 3rem 0.3rem 3rem;
+    border: none;
+    border-radius: 20px;
+    text-decoration: none;
+    color: aliceblue;
+}
+
 .buttonBack{
     background-color: rgb(0, 148, 0);
     border-style: groove;
@@ -11,21 +33,25 @@
 
   }
 
-  .body3 {
-    background: black;
-    color: #fff;
+  .carrito {
+    background: #f6ad10b4;
+    color: black;
     font-weight: 400;
     font-size: 1em;
     font-family: 'Source Sans Pro', sans-serif;
-    margin: 0;
+    margin-left: 20%;
     padding: 0;
     padding-bottom: 2rem;
-    width: 70%;
+    width: 60%;
     border: solid 2px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
 
 }
-
 
 .h12 {
     color: rgb(255, 255, 255);
@@ -40,4 +66,23 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
+}
+
+.ButtonClear{
+    background-color: red;
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem 3rem 0.3rem 3rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+.ButtonCheckout{
+    background-color: green;
+    text-decoration: none;
+    border: none;
+    padding: 0.3rem 3rem 0.3rem 3rem;
+    border-radius: 20px;
+    color: black;
+
 }
