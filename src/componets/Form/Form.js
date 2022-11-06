@@ -73,7 +73,7 @@ const submit = (e) => {
                                 <input class="ccformfield" value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Nombre y Apellido" required />
                             </div>
                             <div class="ccfield-prepend">
-                                <span class="ccform-addon"><i class="fa fa-user fa-2x"></i></span>
+                                <span class="ccform-addon"><i class="fa fa-map-marker fa-2x"></i></span>
                                 <input class="ccformfield" value={address} onChange={(e) => setAddress(e.target.value)} type="text" placeholder="Dirección" required />
                             </div>
                             <div class="ccfield-prepend">
@@ -93,7 +93,8 @@ const submit = (e) => {
                                 <textarea class="ccformfield" name="comments" rows="8" placeholder="Aclaración o comentario" required></textarea>
                             </div>
                             <div class="ccfield-prepend">
-                                <button class="ccbtn" onClick={submit}>TERMINAR ORDEN DE COMPRA</button>
+                                <button class="ccbtn" onClick={submit}>ENVIAR ORDEN DE COMPRA</button>
+                                <div className="arrow"><i class="fa fa-arrow-down fa-4x" aria-hidden="true"></i></div>
                             </div>
                         </form>
                     </div>

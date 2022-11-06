@@ -5,6 +5,7 @@ import { db } from '../../services'
 import { useNavigate } from "react-router-dom";
 import FormularioCliente from '../Form/Form'
 import Swal from "sweetalert2";
+import './Checkout.css'
 
 
 const Checkout = () => {
@@ -108,7 +109,7 @@ const Checkout = () => {
             <button className="volver" onClick={() => navigate(-1)} >Volver</button>
             <FormularioCliente completoDatos={completoDatos} />
             {personalData
-                ? <button onClick={createOrder}>Generar Pedido</button>
+                ? <button onClick={createOrder} className="CrearOrden">GENERAR PEDIDO</button>
                 : ""}
         </div>
     )
