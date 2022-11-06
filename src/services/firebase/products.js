@@ -1,28 +1,37 @@
 import { getDocs, collection, query, where } from 'firebase/firestore'
+import {getDoc, doc} from 'firebase/firestore'
 import { createAdaptedProductFromFirestore } from '../../Adapter/productAdapter'
 import { db } from ".."
 
 export const getProducts = (categoryId) => {
     return new Promise((resolve, reject) => {
-
-        const collectionRef = categoryId
-
+            const collectionRef = categoryId 
             ? query(collection(db, 'products'), where('category', '==', categoryId))
             : collection(db, 'products')
 
-
-        getDocs(collectionRef).then(response => {
-            console.log(response)
-
-            const productsAdapted = response.docs.map(doc => {
-
-                return createAdaptedProductFromFirestore(doc)
+        getDocs(collectionRef)
+            .then(response => {
+                const productsAdapted = response.docs.map(doc => {
+                    return createAdaptedProductFromFirestore(doc)
+                })
+                resolve(productsAdapted)
             })
-            console.log(productsAdapted)
-
-            resolve(productsAdapted)
-        }).catch(error => {
-            reject(error)
-        })
+            .catch(error => {
+                reject(error)
+            })
+    })
+}
+export const getProductById = (productId) => {
+    return new Promise((resolve, reject) => {
+            const docRef = doc(db, 'products', productId) 
+            
+        getDoc(docRef)
+            .then(response => {
+                const productAdapted = createAdaptedProductFromFirestore(response)
+                resolve(productAdapted)
+            })
+            .catch(error => {
+                reject(error)
+            })
     })
 }

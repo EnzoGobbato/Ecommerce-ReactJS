@@ -36,11 +36,11 @@ const NavBar = () =>{
         <li><Link to='/category/equipos' className="button-nav">Equipos nuevos y reacondicionados</Link></li>
         <li><CardWidget /></li>
       </ul>
-      { categories.map(cat => {
+        {/* categories.map(cat => {
                 return(
                 <Link key={cat.id} to={`/category/${cat.slug}`}> {cat.label} </Link>
               )})
-            } 
+                */ }
   </nav>
   
 </div>

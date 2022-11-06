@@ -11,3 +11,15 @@
     justify-content: center;
     align-items: center;
   }
+
+  .buttonBack{
+    background-color: rgb(0, 148, 0);
+    border-style: groove;
+    padding: 0.6rem;
+    color: aliceblue;
+    font-size: large;
+    margin: 0.5rem 0 0 0.5rem;
+    cursor: pointer;
+    width: 10%;
+
+  }

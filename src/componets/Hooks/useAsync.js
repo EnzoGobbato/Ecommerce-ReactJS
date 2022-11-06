@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-const useAsync = (asyncFn, dependencias) => {
+export const useAsync = (asyncFn, dependencias = []) => {
     const [data, setData] = useState()
     const [error, setError] = useState()
     // Estado que controla el estado de carga
@@ -24,7 +24,7 @@ const useAsync = (asyncFn, dependencias) => {
                 setCargando(false)
             }
             )
-    }, [...dependencias]) 
+    }, dependencias) 
 
     return {
         data,
@@ -33,5 +33,3 @@ const useAsync = (asyncFn, dependencias) => {
     }
 
 }
-
-export default useAsync

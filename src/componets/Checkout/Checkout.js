@@ -1,20 +1,24 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../CartContext/CartContext.js";
-import { NotificationContext } from '../../Notification/NotificationService'
 import { collection, getDocs, query, where, documentId, writeBatch, addDoc } from 'firebase/firestore'
 import { db } from '../../services'
 import { useNavigate } from "react-router-dom";
+import FormularioCliente from '../Form/Form'
+import Swal from "sweetalert2";
 
-//funcion para realizar la compra y mandar los datos al firebase
 
 const Checkout = () => {
     const [loading, setLoading] = useState(false)
+
+    const [personalData, setPersonalData] = useState(false)
+    const [datosCompra, setDatosCompra] = useState({})
+
+    const completoDatos = (name, surname, address, phone, email) => {
+        setDatosCompra({ name, surname, address, phone, email })
+        setPersonalData(true)
+    }
+
     const { cart, totalQuantity, clearCart } = useContext(CartContext)
-    const { setNotification } = useContext (NotificationContext)
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
 
     const navigate = useNavigate()
 
@@ -22,118 +26,92 @@ const Checkout = () => {
         setLoading(true)
         //Donde guardo los errores
         try {
-
             const objOrder = {
-                buyer: {
-                    name: { name },
-                    phone: { phone },
-                    mail: { email },
-                    address: { address }
-                },
+                buyer: datosCompra,
                 items: cart,
                 total: totalQuantity
             }
-    //Creo el Batch
-    const batch = writeBatch(db)
-    //Guardo productos fuera del stock en un array
-    //Si este array está vacio, todos los productos tienen el stock correcto
-    //Si tiene algun producto, significa que no tiene stock
-    const outOfStock = []
+            console.log(objOrder)
 
-    const ids = cart.map(prod => prod.id)
+            const batch = writeBatch(db)
+            const outOfStock = []
+ 
+            const ids = cart.map(prod => prod.id)
 
-    //Consulto en la base de datos esos productos
-    const productsRef = collection(db, 'products')
+            const productsRef = collection(db, 'products')
 
-    const productsAddedFromFirestore = await getDocs(query(productsRef, where(documentId(), 'in', ids)))
+            const productsAddedFromFirestore = await getDocs(query(productsRef, where(documentId(), 'in', ids)))
+    
+            const { docs } = productsAddedFromFirestore
+            docs.forEach(doc => {
+                //Con esta función obtengo el stock de los campos
+                const dataDoc = doc.data()
+                const stockDb = dataDoc.stock
+                //Obtengo la cantidad con el id que el usuario agregó (quantity) al carrito del producto, y lo encuentro en el carrito, trayendome la cantidad con el contador
+                const productAddedToCart = cart.find(prod => prod.id === doc.id)
+                const prodQuantity = productAddedToCart?.quantity
+                //Una vez que tengo los valores los comparo, si el valor que tengo en la base de datos es > o = a la cantidad que agrego el usuario, puede vender correctamente.
+                if (stockDb >= prodQuantity) {
+                    batch.update(doc.ref, { stock: stockDb - prodQuantity })
+                } else {
+                    //Todos los productos que pasen la validación se guardan en batch, los que no, en outofstock
+                    outOfStock.push({ id: doc.id, ...dataDoc })
+                }
+            })
 
-    const { docs } = productsAddedFromFirestore
+            if (outOfStock.length === 0) {
+                await batch.commit()
 
-    docs.forEach(doc => {
-        //Con esta función obtengo el stock de los campos
-        const dataDoc = doc.data()
-        const stockDb = dataDoc.stock
+                const orderRef = collection(db, 'orders')
 
-        const productAddedToCart = cart.find(prod => prod.id === doc.id)
-        const prodQuantity = productAddedToCart?.quantity
+                const orderAdded = await addDoc(orderRef, objOrder)
 
-        if (stockDb >= prodQuantity) {
-        //Stock de base de datos menos el stock que el usuario tiene agregado al carrito.
-            batch.update(doc.ref, { stock: stockDb - prodQuantity }) //Referencia directa sin decir en qué coleccion está
-        } else {
-        //Todos los productos que pasen la validación se guardan en batch, los que no, en outofstock
-            outOfStock.push({ id: doc.id, ...dataDoc })
+                clearCart()
+
+                setTimeout(() => {
+                    navigate('/')
+                }, 2000)
+                Swal.fire({
+                    title: "Gracias por su compra",
+                    text:`El id de su orden es: ${orderAdded.id}`,
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: true,
+                
+                })
+            } else {
+                Swal.fire({
+                    title: "Algunos productos no se encuentran en stock",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                
+                })
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
         }
-    })
 
-    if (outOfStock.length === 0) {
-        await batch.commit()
-
-        const orderRef = collection(db, 'orders')
-
-        const orderAdded = await addDoc(orderRef, objOrder)
-
-        clearCart()
-
-        setTimeout(() => {
-            navigate('/')
-        }, 2000)
-
-        setNotification('success', `El id de su orden es: ${orderAdded.id}`)
-    } else {
-        setNotification('error', 'Hay productos que están fuera de stock')
     }
 
-} catch (error) {
-    console.log(error)
-} finally {
-    setLoading(false)
-}
-}
-
-if (loading) {
-return <h1>Espere un momento mientras generamos su orden.</h1>
-}
-
-//Validación del form
-
-const submit = (e) => {
-
-    e.prevetDefault()
-
-    if (name.value === null || name.value === '') {
-        alert('complete los campos')
-
-    if (email.value === null || email.value === '') {
-        alert('complete los campos')
+    if (loading) {
+        return <h1>Se esta procesando su pedido...</h1>
     }
-    if (phone.value === null || phone.value === '') {
-        alert('complete los campos')
-    }
-    if (address.value === null || address.value === '') {
-        alert('complete los campos')
-    }
-
-    return false;
-
-}
-
-//formulario
-
-return (
-    <div className="formulario">
-        <h1>Formulario</h1>
-        <h2>Complete el siguiente formulario para realizar su orden de compra con los productos agregados al carrito</h2>
-        <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Nombre y Apellido" />
-        <input value={address} onChange={(e) => setAddress(e.target.value)} type="text" placeholder="Dirección" />
-        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" />
-        <input value={phone} onChange={(e) => setPhone(e.target.value)} type="number" placeholder="Teléfono" />
-        <button onClick={createOrder}>Generar pedido</button>
-        <button onClick={(e) => this.submit(e)}>Validar datos</button>
-
-    </div>
-)
-}
+    return (
+  
+        <div>
+            {/* Botón para volver hacia la página anterior */}
+            <button className="volver" onClick={() => navigate(-1)} >Volver</button>
+            <FormularioCliente completoDatos={completoDatos} />
+            {personalData
+                ? <button onClick={createOrder}>Generar Pedido</button>
+                : ""}
+        </div>
+    )
 }
 
 export default Checkout

@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import { useState, createContext } from "react";
+import './form.css'
 
 export const FormContext = createContext({
     declaredName:"",
@@ -57,7 +58,7 @@ const submit = (e) => {
 
 
     return (
-        <form>
+        <form className="Form">
 
             <div>
                 <input  value={name} onChange={(e) => setName(e.target.value)} type="text"   className="form-input"   placeholder="Nombre" required />
@@ -69,7 +70,7 @@ const submit = (e) => {
             </div>
             <button onClick = {submit}>Finalizar orden de compra</button>
         
-            </form>
+        </form>
 )
 }
 
